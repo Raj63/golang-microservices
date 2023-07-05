@@ -1,0 +1,208 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Documentation's Golang Integration Sample",
+        "title": "Golang Integration Sample",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Rajesh Kumar Biswas",
+            "url": "https://github.com/Raj63",
+            "email": "biswas.rajesh63@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "2.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/v1",
+    "paths": {
+        "/invoices": {
+            "post": {
+                "description": "Create new invoice on the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "invoices"
+                ],
+                "summary": "Create New Invoice",
+                "parameters": [
+                    {
+                        "description": "body data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/invoice.NewInvoiceRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/invoice.Invoice"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/invoice.MessageResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/invoice.MessageResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/invoices/{invoice_id}": {
+            "get": {
+                "description": "Get Invoice by ID on the system",
+                "tags": [
+                    "invoices"
+                ],
+                "summary": "Get invoice by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id of invoice",
+                        "name": "invoice_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/invoice.Invoice"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/invoice.MessageResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/invoice.MessageResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_Raj63_golang-microservices_services_web-portal_pkg_domain_invoice.Money": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "example": 1200
+                },
+                "code": {
+                    "type": "string",
+                    "example": "INR"
+                }
+            }
+        },
+        "github_com_Raj63_golang-microservices_services_web-portal_pkg_infrastructure_rest_controllers_invoice.Money": {
+            "type": "object",
+            "required": [
+                "amount",
+                "code"
+            ],
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "example": 1200
+                },
+                "code": {
+                    "type": "string",
+                    "example": "INR"
+                }
+            }
+        },
+        "invoice.Invoice": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "$ref": "#/definitions/github_com_Raj63_golang-microservices_services_web-portal_pkg_domain_invoice.Money"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Something"
+                },
+                "id": {
+                    "type": "string",
+                    "example": ""
+                },
+                "number": {
+                    "type": "string",
+                    "example": "RF-0017"
+                },
+                "status": {
+                    "type": "string",
+                    "example": " DRAFT, OPEN, FILLED, LOCKED, APPROVED"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2021-02-24 20:19:39"
+                }
+            }
+        },
+        "invoice.MessageResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "invoice.NewInvoiceRequest": {
+            "type": "object",
+            "required": [
+                "amount",
+                "description",
+                "id",
+                "number",
+                "status"
+            ],
+            "properties": {
+                "amount": {
+                    "$ref": "#/definitions/github_com_Raj63_golang-microservices_services_web-portal_pkg_infrastructure_rest_controllers_invoice.Money"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Something"
+                },
+                "id": {
+                    "type": "string",
+                    "example": ""
+                },
+                "number": {
+                    "type": "string",
+                    "example": "RF-0017"
+                },
+                "status": {
+                    "type": "string",
+                    "example": " DRAFT, OPEN, FILLED, LOCKED, APPROVED"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,143 @@
+basePath: /v1
+definitions:
+  github_com_Raj63_golang-microservices_services_web-portal_pkg_domain_invoice.Money:
+    properties:
+      amount:
+        example: 1200
+        type: integer
+      code:
+        example: INR
+        type: string
+    type: object
+  github_com_Raj63_golang-microservices_services_web-portal_pkg_infrastructure_rest_controllers_invoice.Money:
+    properties:
+      amount:
+        example: 1200
+        type: integer
+      code:
+        example: INR
+        type: string
+    required:
+    - amount
+    - code
+    type: object
+  invoice.Invoice:
+    properties:
+      amount:
+        $ref: '#/definitions/github_com_Raj63_golang-microservices_services_web-portal_pkg_domain_invoice.Money'
+      created_at:
+        type: string
+      description:
+        example: Something
+        type: string
+      id:
+        example: ""
+        type: string
+      number:
+        example: RF-0017
+        type: string
+      status:
+        example: ' DRAFT, OPEN, FILLED, LOCKED, APPROVED'
+        type: string
+      updated_at:
+        example: "2021-02-24 20:19:39"
+        type: string
+    type: object
+  invoice.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  invoice.NewInvoiceRequest:
+    properties:
+      amount:
+        $ref: '#/definitions/github_com_Raj63_golang-microservices_services_web-portal_pkg_infrastructure_rest_controllers_invoice.Money'
+      description:
+        example: Something
+        type: string
+      id:
+        example: ""
+        type: string
+      number:
+        example: RF-0017
+        type: string
+      status:
+        example: ' DRAFT, OPEN, FILLED, LOCKED, APPROVED'
+        type: string
+    required:
+    - amount
+    - description
+    - id
+    - number
+    - status
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: biswas.rajesh63@gmail.com
+    name: Rajesh Kumar Biswas
+    url: https://github.com/Raj63
+  description: Documentation's Golang Integration Sample
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Golang Integration Sample
+  version: "2.0"
+paths:
+  /invoices:
+    post:
+      consumes:
+      - application/json
+      description: Create new invoice on the system
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/invoice.NewInvoiceRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/invoice.Invoice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/invoice.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/invoice.MessageResponse'
+      summary: Create New Invoice
+      tags:
+      - invoices
+  /invoices/{invoice_id}:
+    get:
+      description: Get Invoice by ID on the system
+      parameters:
+      - description: id of invoice
+        in: path
+        name: invoice_id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/invoice.Invoice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/invoice.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/invoice.MessageResponse'
+      summary: Get invoice by ID
+      tags:
+      - invoices
+swagger: "2.0"

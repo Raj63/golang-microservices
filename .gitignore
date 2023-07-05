@@ -1,0 +1,10 @@
+# IDE Folders and Files
+.idea
+.DS_Store
+*/config.json
+services/web-portal/data/*
+services/invoices/data/*
+.gitconfig*
+coverage*
+services/web-portal/vendor/*
+services/invoices/vendor/*

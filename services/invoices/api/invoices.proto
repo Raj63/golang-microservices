@@ -1,0 +1,57 @@
+syntax = "proto3";
+package api;
+
+option go_package = "./api";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+service InvoicesService {
+    rpc CreateInvoice (CreateInvoiceRequest) returns (CreateInvoiceReply) {
+      option (google.api.http) = {
+        post : "/v1/invoices",
+        body : "*"
+      };
+  
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        summary : "Create Invoice handles the creation of a new invoice.";
+        operation_id: "CreateInvoice";
+        tags: "Invoices";
+        responses : {
+          key: "201";
+          value : {
+            description: "Created";
+          }
+        }
+      }; 
+    }
+  }
+  
+  message CreateInvoiceRequest {
+    string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice ID in uuid format."}];
+    string number = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice number in Alpha Numeric format. Example: RF-0017"}];
+    string description = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice description in text format."}];
+    InvoiceStatusEnum.InvoiceStatus status = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The Invoice status value. Example: DRAFT, OPEN, FILLED, LOCKED, APPROVED."}];
+    Money amount = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The Invoice amount value."}];
+  }
+  
+  message CreateInvoiceReply {
+  }
+  
+
+  // Money message for implementing Fowler Money pattern.
+  message Money {
+    string currency = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ISO 4217 Currency Code"}];
+    int64 amount = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Amount using smallest unit value"}];
+  }
+
+  message InvoiceStatusEnum{
+    // InvoiceStatus
+    enum InvoiceStatus{
+      DRAFT = 0; // This will be considered as default value when a Invoice is created.
+      OPEN = 1; // Represents the Invoice is open for bidding.
+      Filled = 2; // Represents the invoice is filled.
+      LOCKED = 3; // Represents the invoice is locked.
+      APPROVED = 4; // Represents the invoice is approved.
+    }
+  }

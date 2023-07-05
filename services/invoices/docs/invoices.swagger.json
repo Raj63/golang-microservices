@@ -1,0 +1,144 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "invoices.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "InvoicesService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/invoices": {
+      "post": {
+        "summary": "Create Invoice handles the creation of a new invoice.",
+        "operationId": "CreateInvoice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiCreateInvoiceReply"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiCreateInvoiceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Invoices"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "InvoiceStatusEnumInvoiceStatus": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "OPEN",
+        "Filled",
+        "LOCKED",
+        "APPROVED"
+      ],
+      "default": "DRAFT",
+      "title": "InvoiceStatus"
+    },
+    "apiCreateInvoiceReply": {
+      "type": "object"
+    },
+    "apiCreateInvoiceRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The invoice ID in uuid format."
+        },
+        "number": {
+          "type": "string",
+          "description": "The invoice number in Alpha Numeric format. Example: RF-0017"
+        },
+        "description": {
+          "type": "string",
+          "description": "The invoice description in text format."
+        },
+        "status": {
+          "$ref": "#/definitions/InvoiceStatusEnumInvoiceStatus",
+          "description": "The Invoice status value. Example: DRAFT, OPEN, FILLED, LOCKED, APPROVED."
+        },
+        "amount": {
+          "$ref": "#/definitions/apiMoney",
+          "description": "The Invoice amount value."
+        }
+      }
+    },
+    "apiMoney": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 Currency Code"
+        },
+        "amount": {
+          "type": "string",
+          "format": "int64",
+          "description": "Amount using smallest unit value"
+        }
+      },
+      "description": "Money message for implementing Fowler Money pattern."
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
