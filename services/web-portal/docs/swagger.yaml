@@ -55,9 +55,6 @@ definitions:
       description:
         example: Something
         type: string
-      id:
-        example: ""
-        type: string
       number:
         example: RF-0017
         type: string
@@ -67,7 +64,6 @@ definitions:
     required:
     - amount
     - description
-    - id
     - number
     - status
     type: object

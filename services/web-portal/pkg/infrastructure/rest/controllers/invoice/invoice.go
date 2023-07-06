@@ -43,6 +43,9 @@ func (c *Controller) CreateInvoice(ctx *gin.Context) {
 	}
 	newInvoice := domainInvoice.Invoice{
 		Description: request.Description,
+		Number:      request.Number,
+		Status:      request.Status,
+		Amount:      (*domainInvoice.Money)(request.Amount),
 	}
 
 	var result *domainInvoice.Invoice

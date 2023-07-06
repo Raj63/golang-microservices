@@ -2,6 +2,7 @@ package invoices
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Raj63/golang-microservices/services/invoices/api"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/domain/invoice"
@@ -23,7 +24,13 @@ type GrpcDI struct {
 }
 
 // Create implements Invoices.
-func (*invoicesGrpc) Create(context.Context, *invoice.Invoice) (*invoice.Invoice, error) {
+func (i *invoicesGrpc) Create(ctx context.Context, invoice *invoice.Invoice) (*invoice.Invoice, error) {
+	invoice.ID = uuid.New()
+	resp, err := i.client.CreateInvoice(ctx, toGRPCMapper(invoice))
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("Invoice created", resp.String())
 	return toDomainMapper(), nil
 }
 

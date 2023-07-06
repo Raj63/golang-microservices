@@ -178,7 +178,6 @@
             "required": [
                 "amount",
                 "description",
-                "id",
                 "number",
                 "status"
             ],
@@ -189,10 +188,6 @@
                 "description": {
                     "type": "string",
                     "example": "Something"
-                },
-                "id": {
-                    "type": "string",
-                    "example": ""
                 },
                 "number": {
                     "type": "string",

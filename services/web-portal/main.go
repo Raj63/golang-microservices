@@ -7,10 +7,12 @@ import (
 	"os"
 	"time"
 
+	sdkgrpc "github.com/Raj63/go-sdk/grpc"
 	"github.com/Raj63/go-sdk/http"
 	sdkgin "github.com/Raj63/go-sdk/http/gin"
 	"github.com/Raj63/go-sdk/logger"
 	sdksql "github.com/Raj63/go-sdk/sql"
+	"github.com/Raj63/golang-microservices/services/invoices/api"
 	"github.com/Raj63/golang-microservices/services/web-portal/cmd"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/config"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/rest/routes"
@@ -54,13 +56,21 @@ func main() {
 
 	// database connection
 	_database := sdksql.NewDB(&sdksql.Config{
-		DriverName: sdksql.MYSQL,
+		DriverName: sdksql.POSTGRES,
 		URI:        _config.PrimaryDBUri,
 	}, _logger)
 
+	grpcClient, err := sdkgrpc.NewClient(&sdkgrpc.ClientConfig{
+		Address: _config.InvoicesGRPCService.Address,
+	}, _logger, tracerProvider)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer grpcClient.Close()
+
 	_invoicesGRPCService := invoices.NewInvoiceGrpc(
 		&invoices.GrpcDI{
-			//Client: api.NewInvoicesServiceClient(),
+			Client: api.NewInvoicesServiceClient(grpcClient),
 		},
 	)
 

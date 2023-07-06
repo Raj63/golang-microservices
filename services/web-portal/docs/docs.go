@@ -185,7 +185,6 @@ const docTemplate = `{
             "required": [
                 "amount",
                 "description",
-                "id",
                 "number",
                 "status"
             ],
@@ -196,10 +195,6 @@ const docTemplate = `{
                 "description": {
                     "type": "string",
                     "example": "Something"
-                },
-                "id": {
-                    "type": "string",
-                    "example": ""
                 },
                 "number": {
                     "type": "string",

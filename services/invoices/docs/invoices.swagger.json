@@ -68,7 +68,39 @@
       "title": "InvoiceStatus"
     },
     "apiCreateInvoiceReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The invoice ID in uuid format."
+        },
+        "number": {
+          "type": "string",
+          "description": "The invoice number in Alpha Numeric format. Example: RF-0017"
+        },
+        "description": {
+          "type": "string",
+          "description": "The invoice description in text format."
+        },
+        "status": {
+          "$ref": "#/definitions/InvoiceStatusEnumInvoiceStatus",
+          "description": "The Invoice status value. Example: DRAFT, OPEN, FILLED, LOCKED, APPROVED."
+        },
+        "amount": {
+          "$ref": "#/definitions/apiMoney",
+          "description": "The Invoice amount value."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The invoice created at timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The invoice updated at timestamp."
+        }
+      }
     },
     "apiCreateInvoiceRequest": {
       "type": "object",

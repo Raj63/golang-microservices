@@ -2,11 +2,12 @@ module github.com/Raj63/golang-microservices/services/web-portal
 
 go 1.19
 
-replace github.com/Raj63/golang-microservices/services/invoices => ../invoices
+// replace github.com/Raj63/golang-microservices/services/invoices => ../invoices
 
 require (
-	github.com/Raj63/go-sdk v1.0.0
-	github.com/Raj63/golang-microservices/services/invoices v0.0.0-00010101000000-000000000000
+	github.com/Raj63/go-sdk v1.0.1
+	github.com/Raj63/golang-microservices/services/invoices v0.0.0-20230705201102-79eab1d9062b
+	github.com/golang/mock v1.4.4
 	github.com/google/uuid v1.3.0
 	github.com/swaggo/swag v1.16.1
 )
@@ -64,6 +65,7 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.2.1 // indirect
 	github.com/googleapis/gax-go/v2 v2.7.0 // indirect
 	github.com/goware/prefixer v0.0.0-20160118172347-395022866408 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
@@ -125,6 +127,7 @@ require (
 	go.mozilla.org/gopgagent v0.0.0-20170926210634-4d7ea76ff71a // indirect
 	go.mozilla.org/sops/v3 v3.7.3 // indirect
 	go.opencensus.io v0.24.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.42.0 // indirect
 	go.opentelemetry.io/otel v1.16.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.16.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.16.0 // indirect

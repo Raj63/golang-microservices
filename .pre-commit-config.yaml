@@ -62,15 +62,20 @@ repos:
     # - Use the `name` attribute to provide better messaging when the hook runs
     # - Use the `alias` attribute to be able to invoke your hook via `pre-commit run`
     #
-    -   id: my-cmd
-        args: [ go, generate, ./... ]
+    # -   id: my-cmd
+    #     args: [ go, generate, ./... ]
 
-  # - repo: local
-  #   hooks:
-  #   -   id: api-docs-generate
-  #       name: API Docs - Generate
-  #       entry: make generate
-  #       language: system
+  - repo: local
+    hooks:
+    -   id: service-precommit-invoices
+        name: Generate API Docs/Mocks, build and tests 
+        entry: make precommit-invoices
+        language: system
+
+    -   id: service-precommit-portal
+        name: Generate API Docs/Mocks, build and tests 
+        entry: make precommit-portal
+        language: system
     
   #   -   id: api-mocks-generate
   #       name: API Mocks - Generate

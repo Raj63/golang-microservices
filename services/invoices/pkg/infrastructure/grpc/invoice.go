@@ -8,6 +8,5 @@ import (
 
 // CreateInvoice is responsible for creating a new invoice
 func (s *Server) CreateInvoice(context.Context, *api.CreateInvoiceRequest) (*api.CreateInvoiceReply, error) {
-
 	return &api.CreateInvoiceReply{}, nil
 }

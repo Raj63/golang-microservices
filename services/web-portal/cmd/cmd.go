@@ -55,8 +55,8 @@ func serveCommand(di CommandDI) *cobra.Command {
 			}()
 			// Database migration and Seeding actions
 			if di.DB != nil {
-				DBMigrateUp(di.Logger, di.DB, di.EmbedFS)
-				DBSeedUp(di.Logger, di.DB, di.EmbedFS)
+				//DBMigrateUp(di.Logger, di.DB, di.EmbedFS)
+				//DBSeedUp(di.Logger, di.DB, di.EmbedFS)
 
 				if err := di.DB.Open(); err != nil {
 					di.Logger.Fatal(err)

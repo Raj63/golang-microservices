@@ -3,6 +3,7 @@ package api;
 
 option go_package = "./api";
 
+import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
@@ -36,6 +37,13 @@ service InvoicesService {
   }
   
   message CreateInvoiceReply {
+    string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice ID in uuid format."}];
+    string number = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice number in Alpha Numeric format. Example: RF-0017"}];
+    string description = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice description in text format."}];
+    InvoiceStatusEnum.InvoiceStatus status = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The Invoice status value. Example: DRAFT, OPEN, FILLED, LOCKED, APPROVED."}];
+    Money amount = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The Invoice amount value."}];
+    google.protobuf.Timestamp created_at = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice created at timestamp."}];
+    google.protobuf.Timestamp updated_at = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "The invoice updated at timestamp."}];
   }
   
 

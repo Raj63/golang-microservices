@@ -1,0 +1,43 @@
+{
+    "_id": "2e780417-185b-471e-87a5-b318a5b5b0fc",
+    "colName": "web-portal",
+    "created": "2023-07-06T11:18:18.186Z",
+    "sortNum": 10000,
+    "folders": [
+        {
+            "_id": "cd08cac4-e9ad-4a80-a207-120d010b3696",
+            "name": "invoices",
+            "containerId": "",
+            "created": "2023-07-06T11:18:29.311Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "3bb47011-bcfa-42ab-86ed-4f5183589306",
+            "colId": "2e780417-185b-471e-87a5-b318a5b5b0fc",
+            "containerId": "cd08cac4-e9ad-4a80-a207-120d010b3696",
+            "name": "Create a new Invoice",
+            "url": "{{PORTAL_HOST}}/v1/invoices",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-07-06T11:18:46.624Z",
+            "modified": "2023-07-06T13:05:56.599Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"description\": \"some desc\",\n  \"number\": \"RF-00063\",\n  \"status\": \"LOCKED\",\n  \"amount\": {\n    \"amount\": 123444,\n    \"code\": \"INR\"\n  }\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        }
+    ]
+}

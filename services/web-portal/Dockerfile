@@ -15,10 +15,10 @@ RUN go mod tidy
 COPY . .
 
 # Build the Go application
-RUN go build -o golang-integration-sample .
+RUN go build -o web-portal .
 
 # Expose the port the application listens on
 EXPOSE 8080
 
 # Define the command to run when the container starts
-CMD ["./golang-integration-sample","serve"]
+CMD ["./web-portal","serve"]

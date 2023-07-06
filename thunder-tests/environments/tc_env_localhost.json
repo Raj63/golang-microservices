@@ -1,0 +1,14 @@
+{
+    "_id": "438c79ec-927b-4229-8aa9-a4e0f0a5de04",
+    "name": "localhost",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-07-06T11:19:44.689Z",
+    "modified": "2023-07-06T11:19:44.689Z",
+    "data": [
+        {
+            "name": "PORTAL_HOST",
+            "value": "http://localhost:8080"
+        }
+    ]
+}

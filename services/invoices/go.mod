@@ -3,8 +3,9 @@ module github.com/Raj63/golang-microservices/services/invoices
 go 1.19
 
 require (
-	github.com/Raj63/go-sdk v1.0.0
+	github.com/Raj63/go-sdk v1.0.1
 	github.com/Rhymond/go-money v1.0.10
+	github.com/golang/mock v1.4.4
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0
 	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4

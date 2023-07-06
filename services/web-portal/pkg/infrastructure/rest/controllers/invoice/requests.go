@@ -3,7 +3,6 @@ package invoice
 
 // NewInvoiceRequest is a struct that contains the new invoice request information
 type NewInvoiceRequest struct {
-	ID          string `json:"id" example:"" binding:"required"`
 	Description string `json:"description" example:"Something" binding:"required"`
 	Number      string `json:"number" example:"RF-0017" binding:"required"`
 	Status      string `json:"status" example:" DRAFT, OPEN, FILLED, LOCKED, APPROVED" binding:"required"`
