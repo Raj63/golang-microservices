@@ -16,7 +16,115 @@
     "application/json"
   ],
   "paths": {
+    "/v1/bids": {
+      "post": {
+        "summary": "Place bid handles the bidding on an invoice by investors.",
+        "operationId": "PlaceBids",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiBidReply"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiPlaceBidRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Bids"
+        ]
+      }
+    },
+    "/v1/investors": {
+      "get": {
+        "summary": "Get Invoice handles the fetching of an invoice by ID.",
+        "operationId": "GetInvestors",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/apiInvestorsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "paging.page",
+            "description": "The page number of pagination.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "paging.limit",
+            "description": "The limit of pagination.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Investors"
+        ]
+      }
+    },
     "/v1/invoices": {
+      "get": {
+        "summary": "Get Invoice handles the fetching of an invoice by ID.",
+        "operationId": "GetInvoice",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/apiInvoiceReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The invoice ID in uuid format.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Invoices"
+        ]
+      },
       "post": {
         "summary": "Create Invoice handles the creation of a new invoice.",
         "operationId": "CreateInvoice",
@@ -24,7 +132,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/apiCreateInvoiceReply"
+              "$ref": "#/definitions/apiInvoiceReply"
             }
           },
           "201": {
@@ -52,6 +160,71 @@
           "Invoices"
         ]
       }
+    },
+    "/v1/invoices/approve": {
+      "put": {
+        "summary": "ApproveTrade handles the approval process of a trade.",
+        "operationId": "ApproveTrade",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/apiApproveTradeReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiApproveTradeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Invoices"
+        ]
+      }
+    },
+    "/v1/issuers/balance": {
+      "get": {
+        "summary": "Get Invoice handles the fetching of an invoice by ID.",
+        "operationId": "GetIssuerBalance",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/apiIssuerBalanceReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The issuer ID in uuid format.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Issuers"
+        ]
+      }
     }
   },
   "definitions": {
@@ -60,14 +233,97 @@
       "enum": [
         "DRAFT",
         "OPEN",
-        "Filled",
+        "FILLED",
         "LOCKED",
         "APPROVED"
       ],
       "default": "DRAFT",
       "title": "InvoiceStatus"
     },
-    "apiCreateInvoiceReply": {
+    "apiApproveTradeReply": {
+      "type": "object"
+    },
+    "apiApproveTradeRequest": {
+      "type": "object",
+      "properties": {
+        "invoiceId": {
+          "type": "string",
+          "description": "The invoice ID in uuid format."
+        }
+      }
+    },
+    "apiBidReply": {
+      "type": "object"
+    },
+    "apiCreateInvoiceRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The invoice ID in uuid format."
+        },
+        "number": {
+          "type": "string",
+          "description": "The invoice number in Alpha Numeric format. Example: RF-0017"
+        },
+        "description": {
+          "type": "string",
+          "description": "The invoice description in text format."
+        },
+        "status": {
+          "$ref": "#/definitions/InvoiceStatusEnumInvoiceStatus",
+          "description": "The Invoice status value. Example: DRAFT, OPEN, FILLED, LOCKED, APPROVED."
+        },
+        "amount": {
+          "$ref": "#/definitions/apiMoney",
+          "description": "The Invoice amount value."
+        }
+      }
+    },
+    "apiInvestor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The investor ID in uuid format."
+        },
+        "name": {
+          "type": "string",
+          "description": "The investor name in text format. Example: Richard Reil"
+        },
+        "vat": {
+          "type": "string",
+          "description": "The investor vat number in Alpha Numeric format."
+        },
+        "wallet": {
+          "$ref": "#/definitions/apiWallet",
+          "description": "The Investor wallet info."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The investor created at timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The investor updated at timestamp."
+        }
+      }
+    },
+    "apiInvestorsReply": {
+      "type": "object",
+      "properties": {
+        "investors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiInvestor"
+          },
+          "description": "The list of investors."
+        }
+      }
+    },
+    "apiInvoiceReply": {
       "type": "object",
       "properties": {
         "id": {
@@ -102,28 +358,16 @@
         }
       }
     },
-    "apiCreateInvoiceRequest": {
+    "apiIssuerBalanceReply": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string",
-          "description": "The invoice ID in uuid format."
+          "description": "The issuer ID in uuid format."
         },
-        "number": {
-          "type": "string",
-          "description": "The invoice number in Alpha Numeric format. Example: RF-0017"
-        },
-        "description": {
-          "type": "string",
-          "description": "The invoice description in text format."
-        },
-        "status": {
-          "$ref": "#/definitions/InvoiceStatusEnumInvoiceStatus",
-          "description": "The Invoice status value. Example: DRAFT, OPEN, FILLED, LOCKED, APPROVED."
-        },
-        "amount": {
-          "$ref": "#/definitions/apiMoney",
-          "description": "The Invoice amount value."
+        "wallet": {
+          "$ref": "#/definitions/apiWallet",
+          "description": "The Issuer wallet info."
         }
       }
     },
@@ -141,6 +385,66 @@
         }
       },
       "description": "Money message for implementing Fowler Money pattern."
+    },
+    "apiPagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The page number of pagination."
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The limit of pagination."
+        }
+      }
+    },
+    "apiPlaceBidRequest": {
+      "type": "object",
+      "properties": {
+        "invoiceId": {
+          "type": "string",
+          "description": "The invoice ID in uuid format."
+        },
+        "investorId": {
+          "type": "string",
+          "description": "The investor ID in uuid format."
+        },
+        "bidAmount": {
+          "$ref": "#/definitions/apiMoney",
+          "description": "The bidding amount value."
+        }
+      }
+    },
+    "apiWallet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The WALLET ID in uuid format."
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 Currency Code"
+        },
+        "balance": {
+          "type": "string",
+          "format": "int64",
+          "description": "balance Amount using smallest unit value"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The investor created at timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The investor updated at timestamp."
+        }
+      }
     },
     "protobufAny": {
       "type": "object",

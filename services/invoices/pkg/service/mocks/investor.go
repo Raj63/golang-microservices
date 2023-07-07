@@ -65,3 +65,18 @@ func (mr *MockInvestorMockRecorder) Get(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockInvestor)(nil).Get), ctx, id)
 }
+
+// GetAll mocks base method.
+func (m *MockInvestor) GetAll(ctx context.Context, paging *model.Paging) ([]model.Investor, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAll", ctx, paging)
+	ret0, _ := ret[0].([]model.Investor)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAll indicates an expected call of GetAll.
+func (mr *MockInvestorMockRecorder) GetAll(ctx, paging interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAll", reflect.TypeOf((*MockInvestor)(nil).GetAll), ctx, paging)
+}

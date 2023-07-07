@@ -11,4 +11,5 @@ import (
 type Investor interface {
 	Create(ctx context.Context, investor *model.Investor) (*model.Investor, error)
 	Get(ctx context.Context, id uuid.UUID) (*model.Investor, error)
+	GetAll(ctx context.Context, paging *model.Paging) ([]model.Investor, error)
 }

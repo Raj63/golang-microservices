@@ -5,7 +5,7 @@ package invoice
 type NewInvoiceRequest struct {
 	Description string `json:"description" example:"Something" binding:"required"`
 	Number      string `json:"number" example:"RF-0017" binding:"required"`
-	Status      string `json:"status" example:" DRAFT, OPEN, FILLED, LOCKED, APPROVED" binding:"required"`
+	Status      string `json:"status" example:" DRAFT, OPEN, FILLED, LOCKED, APPROVED"`
 	Amount      *Money `json:"amount" binding:"required"`
 }
 

@@ -13,6 +13,8 @@ import (
 	pkggrpc "github.com/Raj63/golang-microservices/services/invoices/pkg/infrastructure/grpc"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/infrastructure/server"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/infrastructure/tracer"
+	"github.com/Raj63/golang-microservices/services/invoices/pkg/repository/postgres"
+	"github.com/Raj63/golang-microservices/services/invoices/pkg/service/bid"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/service/investor"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/service/invoice"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/service/issuer"
@@ -73,13 +75,21 @@ func main() {
 		log.Fatalln(err)
 	}
 
+	// Create postgres repo implementation object
+	invoicesPostgresRepo := postgres.NewPostgresStorage(postgres.ServiceDI{
+		DB:     _database,
+		Logger: _logger,
+	})
+
 	// Register the gRPC server implementation.
 	api.RegisterInvoicesServiceServer(
 		server.GRPCServer(),
 		&pkggrpc.Server{
-			Investors: investor.NewInvestorService(&investor.ServiceDI{DB: _database}),
-			Invoices:  invoice.NewInvoiceService(&invoice.ServiceDI{DB: _database}),
-			Issuers:   issuer.NewIssuerService(&issuer.ServiceDI{DB: _database}),
+			Logger:    _logger,
+			Investors: investor.NewInvestorService(&investor.ServiceDI{Logger: _logger, InvestorRepo: invoicesPostgresRepo}),
+			Invoices:  invoice.NewInvoiceService(&invoice.ServiceDI{Logger: _logger, InvoicesRepo: invoicesPostgresRepo}),
+			Issuers:   issuer.NewIssuerService(&issuer.ServiceDI{Logger: _logger, IssuerRepo: invoicesPostgresRepo}),
+			Bids:      bid.NewBidService(&bid.ServiceDI{Logger: _logger, InvoicesRepo: invoicesPostgresRepo}),
 		},
 	)
 

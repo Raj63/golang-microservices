@@ -65,7 +65,6 @@ definitions:
     - amount
     - description
     - number
-    - status
     type: object
 host: localhost:8080
 info:

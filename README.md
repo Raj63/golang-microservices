@@ -22,13 +22,14 @@ A sample production grade REST API application written in Golang with Invoice ma
 
 ## Generate Swagger documentation for the Server
 
-- Run command `make generate`
+- Run command `make precommit-invoices`
+- Run command `make precommit-portal`
 
-## Test Application Server
+## Test Application Server for corresponding services
 
 - Run command `make test`
   
-## Build Application Server
+## Build Application Server for corresponding services
 
 - Run command `make build`
 
@@ -47,6 +48,10 @@ A sample production grade REST API application written in Golang with Invoice ma
 
 - The swagger documentation UI will be available at `http://localhost:8080/swagger/index.html`
 ![alt](screenshots/swagger-ui.png)
+
+- The swagger documentation will be auto generated like this
+![alt](screenshots/swag-gen-invoices.png)
+![alt](screenshots/swag-gen-portal.png)
 
 - The PProf will be avilable at `http://localhost:8080/debug/pprof`
 ![alt](screenshots/pprof.png)

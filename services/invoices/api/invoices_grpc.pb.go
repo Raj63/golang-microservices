@@ -19,14 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	InvoicesService_CreateInvoice_FullMethodName = "/api.InvoicesService/CreateInvoice"
+	InvoicesService_CreateInvoice_FullMethodName    = "/api.InvoicesService/CreateInvoice"
+	InvoicesService_GetInvoice_FullMethodName       = "/api.InvoicesService/GetInvoice"
+	InvoicesService_ApproveTrade_FullMethodName     = "/api.InvoicesService/ApproveTrade"
+	InvoicesService_GetIssuerBalance_FullMethodName = "/api.InvoicesService/GetIssuerBalance"
+	InvoicesService_GetInvestors_FullMethodName     = "/api.InvoicesService/GetInvestors"
+	InvoicesService_PlaceBid_FullMethodName         = "/api.InvoicesService/PlaceBid"
 )
 
 // InvoicesServiceClient is the client API for InvoicesService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InvoicesServiceClient interface {
-	CreateInvoice(ctx context.Context, in *CreateInvoiceRequest, opts ...grpc.CallOption) (*CreateInvoiceReply, error)
+	CreateInvoice(ctx context.Context, in *CreateInvoiceRequest, opts ...grpc.CallOption) (*InvoiceReply, error)
+	GetInvoice(ctx context.Context, in *GetInvoiceRequest, opts ...grpc.CallOption) (*InvoiceReply, error)
+	ApproveTrade(ctx context.Context, in *ApproveTradeRequest, opts ...grpc.CallOption) (*ApproveTradeReply, error)
+	GetIssuerBalance(ctx context.Context, in *GetIssuerBalanceRequest, opts ...grpc.CallOption) (*IssuerBalanceReply, error)
+	GetInvestors(ctx context.Context, in *GetInvestorsRequest, opts ...grpc.CallOption) (*InvestorsReply, error)
+	PlaceBid(ctx context.Context, in *PlaceBidRequest, opts ...grpc.CallOption) (*BidReply, error)
 }
 
 type invoicesServiceClient struct {
@@ -37,9 +47,54 @@ func NewInvoicesServiceClient(cc grpc.ClientConnInterface) InvoicesServiceClient
 	return &invoicesServiceClient{cc}
 }
 
-func (c *invoicesServiceClient) CreateInvoice(ctx context.Context, in *CreateInvoiceRequest, opts ...grpc.CallOption) (*CreateInvoiceReply, error) {
-	out := new(CreateInvoiceReply)
+func (c *invoicesServiceClient) CreateInvoice(ctx context.Context, in *CreateInvoiceRequest, opts ...grpc.CallOption) (*InvoiceReply, error) {
+	out := new(InvoiceReply)
 	err := c.cc.Invoke(ctx, InvoicesService_CreateInvoice_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *invoicesServiceClient) GetInvoice(ctx context.Context, in *GetInvoiceRequest, opts ...grpc.CallOption) (*InvoiceReply, error) {
+	out := new(InvoiceReply)
+	err := c.cc.Invoke(ctx, InvoicesService_GetInvoice_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *invoicesServiceClient) ApproveTrade(ctx context.Context, in *ApproveTradeRequest, opts ...grpc.CallOption) (*ApproveTradeReply, error) {
+	out := new(ApproveTradeReply)
+	err := c.cc.Invoke(ctx, InvoicesService_ApproveTrade_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *invoicesServiceClient) GetIssuerBalance(ctx context.Context, in *GetIssuerBalanceRequest, opts ...grpc.CallOption) (*IssuerBalanceReply, error) {
+	out := new(IssuerBalanceReply)
+	err := c.cc.Invoke(ctx, InvoicesService_GetIssuerBalance_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *invoicesServiceClient) GetInvestors(ctx context.Context, in *GetInvestorsRequest, opts ...grpc.CallOption) (*InvestorsReply, error) {
+	out := new(InvestorsReply)
+	err := c.cc.Invoke(ctx, InvoicesService_GetInvestors_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *invoicesServiceClient) PlaceBid(ctx context.Context, in *PlaceBidRequest, opts ...grpc.CallOption) (*BidReply, error) {
+	out := new(BidReply)
+	err := c.cc.Invoke(ctx, InvoicesService_PlaceBid_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +105,12 @@ func (c *invoicesServiceClient) CreateInvoice(ctx context.Context, in *CreateInv
 // All implementations must embed UnimplementedInvoicesServiceServer
 // for forward compatibility
 type InvoicesServiceServer interface {
-	CreateInvoice(context.Context, *CreateInvoiceRequest) (*CreateInvoiceReply, error)
+	CreateInvoice(context.Context, *CreateInvoiceRequest) (*InvoiceReply, error)
+	GetInvoice(context.Context, *GetInvoiceRequest) (*InvoiceReply, error)
+	ApproveTrade(context.Context, *ApproveTradeRequest) (*ApproveTradeReply, error)
+	GetIssuerBalance(context.Context, *GetIssuerBalanceRequest) (*IssuerBalanceReply, error)
+	GetInvestors(context.Context, *GetInvestorsRequest) (*InvestorsReply, error)
+	PlaceBid(context.Context, *PlaceBidRequest) (*BidReply, error)
 	mustEmbedUnimplementedInvoicesServiceServer()
 }
 
@@ -58,8 +118,23 @@ type InvoicesServiceServer interface {
 type UnimplementedInvoicesServiceServer struct {
 }
 
-func (UnimplementedInvoicesServiceServer) CreateInvoice(context.Context, *CreateInvoiceRequest) (*CreateInvoiceReply, error) {
+func (UnimplementedInvoicesServiceServer) CreateInvoice(context.Context, *CreateInvoiceRequest) (*InvoiceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateInvoice not implemented")
+}
+func (UnimplementedInvoicesServiceServer) GetInvoice(context.Context, *GetInvoiceRequest) (*InvoiceReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInvoice not implemented")
+}
+func (UnimplementedInvoicesServiceServer) ApproveTrade(context.Context, *ApproveTradeRequest) (*ApproveTradeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApproveTrade not implemented")
+}
+func (UnimplementedInvoicesServiceServer) GetIssuerBalance(context.Context, *GetIssuerBalanceRequest) (*IssuerBalanceReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetIssuerBalance not implemented")
+}
+func (UnimplementedInvoicesServiceServer) GetInvestors(context.Context, *GetInvestorsRequest) (*InvestorsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInvestors not implemented")
+}
+func (UnimplementedInvoicesServiceServer) PlaceBid(context.Context, *PlaceBidRequest) (*BidReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PlaceBid not implemented")
 }
 func (UnimplementedInvoicesServiceServer) mustEmbedUnimplementedInvoicesServiceServer() {}
 
@@ -92,6 +167,96 @@ func _InvoicesService_CreateInvoice_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InvoicesService_GetInvoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInvoiceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InvoicesServiceServer).GetInvoice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InvoicesService_GetInvoice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InvoicesServiceServer).GetInvoice(ctx, req.(*GetInvoiceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InvoicesService_ApproveTrade_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApproveTradeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InvoicesServiceServer).ApproveTrade(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InvoicesService_ApproveTrade_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InvoicesServiceServer).ApproveTrade(ctx, req.(*ApproveTradeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InvoicesService_GetIssuerBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetIssuerBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InvoicesServiceServer).GetIssuerBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InvoicesService_GetIssuerBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InvoicesServiceServer).GetIssuerBalance(ctx, req.(*GetIssuerBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InvoicesService_GetInvestors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInvestorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InvoicesServiceServer).GetInvestors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InvoicesService_GetInvestors_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InvoicesServiceServer).GetInvestors(ctx, req.(*GetInvestorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InvoicesService_PlaceBid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PlaceBidRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InvoicesServiceServer).PlaceBid(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InvoicesService_PlaceBid_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InvoicesServiceServer).PlaceBid(ctx, req.(*PlaceBidRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InvoicesService_ServiceDesc is the grpc.ServiceDesc for InvoicesService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +267,26 @@ var InvoicesService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateInvoice",
 			Handler:    _InvoicesService_CreateInvoice_Handler,
+		},
+		{
+			MethodName: "GetInvoice",
+			Handler:    _InvoicesService_GetInvoice_Handler,
+		},
+		{
+			MethodName: "ApproveTrade",
+			Handler:    _InvoicesService_ApproveTrade_Handler,
+		},
+		{
+			MethodName: "GetIssuerBalance",
+			Handler:    _InvoicesService_GetIssuerBalance_Handler,
+		},
+		{
+			MethodName: "GetInvestors",
+			Handler:    _InvoicesService_GetInvestors_Handler,
+		},
+		{
+			MethodName: "PlaceBid",
+			Handler:    _InvoicesService_PlaceBid_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

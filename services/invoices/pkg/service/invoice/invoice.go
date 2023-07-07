@@ -3,19 +3,22 @@ package invoice
 import (
 	"context"
 
-	sdksql "github.com/Raj63/go-sdk/sql"
+	"github.com/Raj63/go-sdk/logger"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/model"
+	"github.com/Raj63/golang-microservices/services/invoices/pkg/repository"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/service"
 	"github.com/google/uuid"
 )
 
 type invoiceService struct {
-	db *sdksql.DB
+	logger       *logger.Logger
+	invoicesRepo repository.InvoicesRepo
 }
 
 // ServiceDI is the Dependency Injection entity
 type ServiceDI struct {
-	DB *sdksql.DB
+	Logger       *logger.Logger
+	InvoicesRepo repository.InvoicesRepo
 }
 
 // Approve implements service.Invoice.
@@ -36,6 +39,7 @@ func (*invoiceService) Get(ctx context.Context, id uuid.UUID) (*model.Invoice, e
 // NewInvoiceService return implementation of Investor service interface
 func NewInvoiceService(di *ServiceDI) service.Invoice {
 	return &invoiceService{
-		db: di.DB,
+		logger:       di.Logger,
+		invoicesRepo: di.InvoicesRepo,
 	}
 }

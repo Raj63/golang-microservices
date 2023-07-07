@@ -178,8 +178,7 @@
             "required": [
                 "amount",
                 "description",
-                "number",
-                "status"
+                "number"
             ],
             "properties": {
                 "amount": {

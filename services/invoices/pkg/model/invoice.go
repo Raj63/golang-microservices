@@ -13,7 +13,7 @@ type Invoice struct {
 	Number      string
 	Description string
 	Status      InvoiceStatus
-	Amount      *gomoney.Money
+	Money       *gomoney.Money
 	Created     time.Time
 	Updated     time.Time
 }
@@ -33,3 +33,12 @@ const (
 	// APPROVED represents a InvoiceStatus
 	APPROVED InvoiceStatus = "APPROVED"
 )
+
+// InvoiceStatusMap is used for mapping Invoice status
+var InvoiceStatusMap = map[string]InvoiceStatus{
+	"DRAFT":    DRAFT,
+	"OPEN":     OPEN,
+	"FILLED":   FILLED,
+	"LOCKED":   LOCKED,
+	"APPROVED": APPROVED,
+}

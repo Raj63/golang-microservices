@@ -185,8 +185,7 @@ const docTemplate = `{
             "required": [
                 "amount",
                 "description",
-                "number",
-                "status"
+                "number"
             ],
             "properties": {
                 "amount": {

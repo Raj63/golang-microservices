@@ -3,14 +3,14 @@ package model
 import (
 	"time"
 
+	gomoney "github.com/Rhymond/go-money"
 	"github.com/google/uuid"
 )
 
-// Issuer model
-type Issuer struct {
+// Wallet model
+type Wallet struct {
 	ID      uuid.UUID
-	Name    string
-	Wallet  *Wallet
+	Money   *gomoney.Money
 	Created time.Time
 	Updated time.Time
 }
