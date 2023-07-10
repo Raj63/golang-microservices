@@ -1,9 +1,12 @@
 package postgres
 
 import (
+	"context"
+
 	"github.com/Raj63/go-sdk/logger"
 	sdksql "github.com/Raj63/go-sdk/sql"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/repository"
+	"github.com/jmoiron/sqlx"
 )
 
 type postgresStorage struct {
@@ -23,4 +26,9 @@ func NewPostgresStorage(di ServiceDI) repository.InvoicesRepo {
 		db:     di.DB,
 		logger: di.Logger,
 	}
+}
+
+// NewTransaction is to begin new sql transaction.
+func (mt *postgresStorage) NewTransaction(ctx context.Context) (*sqlx.Tx, error) {
+	return mt.db.DB().BeginTxx(ctx, nil)
 }

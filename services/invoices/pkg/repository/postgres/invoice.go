@@ -5,15 +5,16 @@ import (
 
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/repository"
 	"github.com/google/uuid"
+	"github.com/jmoiron/sqlx"
 )
 
 // CreateInvoice implements repository.InvoicesRepo.
-func (*postgresStorage) CreateInvoice(ctx context.Context, invoice *repository.InvoiceEntity) (*repository.InvoiceEntity, error) {
+func (*postgresStorage) CreateInvoice(ctx context.Context, invoice *repository.InvoiceEntity, tx *sqlx.Tx) (*repository.InvoiceEntity, error) {
 	panic("unimplemented")
 }
 
 // DeleteInvoice implements repository.InvoicesRepo.
-func (*postgresStorage) DeleteInvoice(ctx context.Context, id uuid.UUID) error {
+func (*postgresStorage) DeleteInvoice(ctx context.Context, id uuid.UUID, tx *sqlx.Tx) error {
 	panic("unimplemented")
 }
 
@@ -28,6 +29,6 @@ func (*postgresStorage) ListInvoice(ctx context.Context, paging *repository.Pagi
 }
 
 // UpdateInvoice implements repository.InvoicesRepo.
-func (*postgresStorage) UpdateInvoice(ctx context.Context, id uuid.UUID) error {
+func (*postgresStorage) UpdateInvoice(ctx context.Context, invoice *repository.InvoiceEntity, tx *sqlx.Tx) error {
 	panic("unimplemented")
 }

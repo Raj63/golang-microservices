@@ -4,14 +4,12 @@ import (
 	"github.com/Raj63/golang-microservices/services/invoices/api"
 	"github.com/Raj63/golang-microservices/services/invoices/pkg/model"
 	"github.com/Rhymond/go-money"
-	"github.com/google/uuid"
 )
 
 // converter from api type to model type
 
 func convertCreateInvoiceRequestToModel(in *api.CreateInvoiceRequest) model.Invoice {
 	return model.Invoice{
-		ID:          uuid.MustParse(in.GetId()),
 		Number:      in.GetNumber(),
 		Description: in.GetDescription(),
 		Status:      model.InvoiceStatusMap[in.GetStatus().String()],

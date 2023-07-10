@@ -86,9 +86,9 @@ func main() {
 		server.GRPCServer(),
 		&pkggrpc.Server{
 			Logger:    _logger,
-			Investors: investor.NewInvestorService(&investor.ServiceDI{Logger: _logger, InvestorRepo: invoicesPostgresRepo}),
+			Investors: investor.NewInvestorService(&investor.ServiceDI{Logger: _logger, InvestorsRepo: invoicesPostgresRepo}),
 			Invoices:  invoice.NewInvoiceService(&invoice.ServiceDI{Logger: _logger, InvoicesRepo: invoicesPostgresRepo}),
-			Issuers:   issuer.NewIssuerService(&issuer.ServiceDI{Logger: _logger, IssuerRepo: invoicesPostgresRepo}),
+			Issuers:   issuer.NewIssuerService(&issuer.ServiceDI{Logger: _logger, IssuersRepo: invoicesPostgresRepo}),
 			Bids:      bid.NewBidService(&bid.ServiceDI{Logger: _logger, InvoicesRepo: invoicesPostgresRepo}),
 		},
 	)

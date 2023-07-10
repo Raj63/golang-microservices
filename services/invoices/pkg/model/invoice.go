@@ -10,6 +10,7 @@ import (
 // Invoice model
 type Invoice struct {
 	ID          uuid.UUID
+	IssuerID    uuid.UUID
 	Number      string
 	Description string
 	Status      InvoiceStatus

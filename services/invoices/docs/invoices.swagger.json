@@ -258,10 +258,6 @@
     "apiCreateInvoiceRequest": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "The invoice ID in uuid format."
-        },
         "number": {
           "type": "string",
           "description": "The invoice number in Alpha Numeric format. Example: RF-0017"

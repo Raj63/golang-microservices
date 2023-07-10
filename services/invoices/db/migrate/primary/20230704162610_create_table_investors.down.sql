@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `investors`;
+DROP TABLE IF EXISTS investors;

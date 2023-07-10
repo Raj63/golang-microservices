@@ -37,18 +37,18 @@ func (m *MockIssuer) EXPECT() *MockIssuerMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockIssuer) Create(ctx context.Context, investor *model.Issuer) (*model.Issuer, error) {
+func (m *MockIssuer) Create(ctx context.Context, issuer *model.Issuer) (*model.Issuer, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", ctx, investor)
+	ret := m.ctrl.Call(m, "Create", ctx, issuer)
 	ret0, _ := ret[0].(*model.Issuer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Create indicates an expected call of Create.
-func (mr *MockIssuerMockRecorder) Create(ctx, investor interface{}) *gomock.Call {
+func (mr *MockIssuerMockRecorder) Create(ctx, issuer interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockIssuer)(nil).Create), ctx, investor)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockIssuer)(nil).Create), ctx, issuer)
 }
 
 // Get mocks base method.

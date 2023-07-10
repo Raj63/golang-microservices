@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `issuer_wallets`;
+DROP TABLE IF EXISTS issuer_wallets;

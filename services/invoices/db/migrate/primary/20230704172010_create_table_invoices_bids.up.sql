@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS invoices_bids (
+  id UUID PRIMARY KEY,
+  invoice_id UUID NOT NULL,
+  investor_id UUID NOT NULL,
+  amount BIGINT DEFAULT 0,
+  currency_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  FOREIGN KEY (invoice_id) REFERENCES invoices (id) ON DELETE CASCADE,
+  FOREIGN KEY (investor_id) REFERENCES investors (id) ON DELETE CASCADE,
+  FOREIGN KEY (currency_id) REFERENCES currency (id) ON DELETE CASCADE
+);

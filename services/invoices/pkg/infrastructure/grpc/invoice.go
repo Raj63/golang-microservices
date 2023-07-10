@@ -55,9 +55,6 @@ func (s *Server) ApproveTrade(ctx context.Context, req *api.ApproveTradeRequest)
 }
 
 func validateCreateInvoiceRequest(req *api.CreateInvoiceRequest) error {
-	if !isValidateUUID(req.GetId()) {
-		return status.Error(codes.InvalidArgument, literal.InvalidInvoiceID)
-	}
 	if strings.TrimSpace(req.GetNumber()) == literal.EmptyString {
 		return status.Error(codes.InvalidArgument, literal.InvalidInvoiceNumber)
 	}

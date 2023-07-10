@@ -9,6 +9,6 @@ import (
 
 // Issuer is a interface that contains the methods for the issuer services
 type Issuer interface {
-	Create(ctx context.Context, investor *model.Issuer) (*model.Issuer, error)
+	Create(ctx context.Context, issuer *model.Issuer) (*model.Issuer, error)
 	Get(ctx context.Context, id uuid.UUID) (*model.Issuer, error)
 }

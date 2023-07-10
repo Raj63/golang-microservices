@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS invoices (
   id UUID PRIMARY KEY,
+  issuer_id UUID NOT NULL,
   number VARCHAR NOT NULL,
   status VARCHAR NOT NULL,
   description VARCHAR,
@@ -7,5 +8,6 @@ CREATE TABLE IF NOT EXISTS invoices (
   currency_id INT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  FOREIGN KEY (issuer_id) REFERENCES issuers (id) ON DELETE CASCADE,
   FOREIGN KEY (currency_id) REFERENCES currency (id) ON DELETE CASCADE
 );
