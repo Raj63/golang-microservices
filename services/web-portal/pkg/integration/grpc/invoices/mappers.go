@@ -26,7 +26,6 @@ func toDomainMapper() *domainInvoice.Invoice {
 
 func toGRPCMapper(i *domainInvoice.Invoice) *api.CreateInvoiceRequest {
 	return &api.CreateInvoiceRequest{
-		Id:          i.ID.String(),
 		Number:      i.Number,
 		Description: i.Description,
 		Status:      api.InvoiceStatusEnum_APPROVED,

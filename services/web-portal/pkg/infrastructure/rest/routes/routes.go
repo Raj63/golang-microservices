@@ -8,6 +8,7 @@ import (
 	// swaggerFiles for documentation
 	_ "github.com/Raj63/golang-microservices/services/web-portal/docs"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/rest/adapter"
+	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/rest/middlewares/jwt"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/integration/grpc/invoices"
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,7 @@ type DI struct {
 	Router              *gin.Engine
 	DB                  *sdksql.DB
 	Logger              *logger.Logger
+	JWTMiddleware       jwt.Middleware
 	InvoicesGRPCService invoices.Service
 }
 
@@ -41,7 +43,7 @@ func ApplicationV1Router(di DI) {
 	// di.Router.Use(errorsController.Handler)
 	routerV1 := di.Router.Group("/v1")
 	{
-		InvoiceRoutes(routerV1, adapter.InvoiceAdapter(&adapter.InvoiceAdapterDI{
+		InvoiceRoutes(routerV1, di.JWTMiddleware, adapter.InvoiceAdapter(&adapter.InvoiceAdapterDI{
 			Logger:         di.Logger,
 			InvoiceService: di.InvoicesGRPCService,
 		}))

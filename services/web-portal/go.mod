@@ -6,7 +6,7 @@ go 1.19
 
 require (
 	github.com/Raj63/go-sdk v1.0.1
-	github.com/Raj63/golang-microservices/services/invoices v0.0.0-20230705201102-79eab1d9062b
+	github.com/Raj63/golang-microservices/services/invoices v0.0.0-20230710194158-c5eb2c4da7e3
 	github.com/golang/mock v1.4.4
 	github.com/google/uuid v1.3.0
 	github.com/swaggo/swag v1.16.1
@@ -117,6 +117,7 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.10.1 // indirect
+	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/simukti/sqldb-logger v0.0.0-20230108155151-646c1a075551 // indirect
 	github.com/simukti/sqldb-logger/logadapter/zapadapter v0.0.0-20230108155151-646c1a075551 // indirect
@@ -157,7 +158,9 @@ require (
 )
 
 require (
+	github.com/auth0/go-jwt-middleware/v2 v2.1.0
 	github.com/caarlos0/env/v6 v6.10.1 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/pprof v1.4.0 // indirect
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/locales v0.14.1 // indirect

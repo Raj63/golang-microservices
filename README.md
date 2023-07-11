@@ -8,8 +8,10 @@ A sample production grade REST API application written in Golang with Invoice ma
 - Distributed logging
 - Distributed tracing
 - Monitoring (grafana + Prometheus)
+- Auth0 token-access & validation with support for Roles & scopes
 - Performance analysis(pprof + benchmark testing + autocannon)
 - Postgres database with Auto Migration and Seeding
+- Database Transaction support at service level for data integrity
 - Debugging capacity with inspector
 - Load .env files for configuration settings
 - 80% Unit testing coverage
