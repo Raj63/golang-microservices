@@ -43,6 +43,19 @@ type AppConfig struct {
 		// Address is the Invoices GRPC server's address.
 		Address string `env:"INVOICES_GRPC_ADDRESS"`
 	}
+
+	Auth0Config struct {
+		// Auth0ClientID is the client ID in Auth0 system
+		Auth0ClientID string `env:"AUTH0_CLIENT_ID"`
+		// Auth0ClientSecret is the client Secret in Auth0 system
+		Auth0ClientSecret string `env:"AUTH0_CLIENT_SECRET"`
+		// Auth0CallbackURL is the application callback url in Auth0 system
+		Auth0CallbackURL string `env:"AUTH0_CALLBACK_URL"`
+		// Auth0Domain is the Domain in Auth0 system
+		Auth0Domain string `env:"AUTH0_DOMAIN"`
+		// Auth0SharedSecret is the SharedSecret in Auth0 system
+		Auth0SharedSecret string `env:"AUTH0_SHARED_SECRET"`
+	}
 }
 
 // NewConfig parse the ENV variables into EnvConfig struct.

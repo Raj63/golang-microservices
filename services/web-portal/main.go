@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"embed"
 	"log"
 	nethttp "net/http"
@@ -15,7 +16,7 @@ import (
 	"github.com/Raj63/golang-microservices/services/invoices/api"
 	"github.com/Raj63/golang-microservices/services/web-portal/cmd"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/config"
-	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/rest/middlewares/jwt/auth0"
+	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/rest/middlewares/auth0/authenticator"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/rest/routes"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/server"
 	"github.com/Raj63/golang-microservices/services/web-portal/pkg/infrastructure/tracer"
@@ -75,18 +76,21 @@ func main() {
 		},
 	)
 
-	// TODO: populate the params from config values
-	_jwtAuthMiddleware, err := auth0.NewJWT(&auth0.DI{
-		Auth0Domain:    "",
-		Auth0Audience:  "",
-		Auth0Namespace: "",
-		AllowedOrigin:  "",
-		Logger:         _logger,
+	_authenticator, err := authenticator.New(&authenticator.DI{
+		Auth0ClientID:     _config.Auth0Config.Auth0ClientID,
+		Auth0ClientSecret: _config.Auth0Config.Auth0ClientSecret,
+		Auth0CallbackURL:  _config.Auth0Config.Auth0CallbackURL,
+		Auth0Domain:       _config.Auth0Config.Auth0Domain,
+		Auth0SharedSecret: _config.Auth0Config.Auth0SharedSecret,
 	})
 	if err != nil {
 		log.Fatalln(err)
 	}
 
+	err = _authenticator.Init(context.Background())
+	if err != nil {
+		log.Fatalln(err)
+	}
 	var httpServer, httpsServer *http.Server
 
 	// Setup the HTTP server.
@@ -139,7 +143,8 @@ func main() {
 			DB:                  _database,
 			Logger:              _logger,
 			InvoicesGRPCService: _invoicesGRPCService,
-			JWTMiddleware:       _jwtAuthMiddleware,
+			Config:              _config,
+			Authenticator:       _authenticator,
 		})
 
 		httpServer, err = server.NewServer(server.DI{
@@ -175,7 +180,8 @@ func main() {
 			DB:                  _database,
 			Logger:              _logger,
 			InvoicesGRPCService: _invoicesGRPCService,
-			JWTMiddleware:       _jwtAuthMiddleware,
+			Config:              _config,
+			Authenticator:       _authenticator,
 		})
 
 		httpsServer, err = server.NewServer(server.DI{

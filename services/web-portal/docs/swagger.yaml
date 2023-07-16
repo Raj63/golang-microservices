@@ -72,12 +72,12 @@ info:
     email: biswas.rajesh63@gmail.com
     name: Rajesh Kumar Biswas
     url: https://github.com/Raj63
-  description: Documentation's Golang Integration Sample
+  description: Documentation's Web-Portal
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Golang Integration Sample
+  title: Web-Portal
   version: "2.0"
 paths:
   /invoices:

@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Documentation's Golang Integration Sample",
-        "title": "Golang Integration Sample",
+        "description": "Documentation's Web-Portal",
+        "title": "Web-Portal",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Rajesh Kumar Biswas",

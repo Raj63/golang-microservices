@@ -6,10 +6,12 @@ go 1.19
 
 require (
 	github.com/Raj63/go-sdk v1.0.1
-	github.com/Raj63/golang-microservices/services/invoices v0.0.0-20230710194158-c5eb2c4da7e3
+	github.com/Raj63/golang-microservices/services/invoices v0.0.0-20230711224926-953210ee5f0f
+	github.com/gin-contrib/sessions v0.0.5
 	github.com/golang/mock v1.4.4
 	github.com/google/uuid v1.3.0
 	github.com/swaggo/swag v1.16.1
+	golang.org/x/oauth2 v0.6.0
 )
 
 require (
@@ -50,6 +52,7 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-contrib/static v0.0.1 // indirect
 	github.com/gin-gonic/contrib v0.0.0-20221130124618-7e01895a63f2 // indirect
+	github.com/go-jose/go-jose/v3 v3.0.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
@@ -64,6 +67,9 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.1 // indirect
 	github.com/googleapis/gax-go/v2 v2.7.0 // indirect
+	github.com/gorilla/context v1.1.1 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/goware/prefixer v0.0.0-20160118172347-395022866408 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
@@ -142,7 +148,6 @@ require (
 	go.uber.org/zap v1.24.0 // indirect
 	golang.org/x/arch v0.3.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/oauth2 v0.6.0 // indirect
 	golang.org/x/term v0.8.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.9.3 // indirect
@@ -158,9 +163,8 @@ require (
 )
 
 require (
-	github.com/auth0/go-jwt-middleware/v2 v2.1.0
 	github.com/caarlos0/env/v6 v6.10.1 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/coreos/go-oidc/v3 v3.6.0
 	github.com/gin-contrib/pprof v1.4.0 // indirect
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/locales v0.14.1 // indirect

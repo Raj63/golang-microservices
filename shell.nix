@@ -21,10 +21,8 @@ mkShell {
     goreleaser
     gosec
     gotools
-    #gocritic
     gofumpt
     golint
-    #goreturns
     mysql80
     openapi-generator-cli
     postgresql
@@ -32,6 +30,7 @@ mkShell {
     protobuf
     protoc-gen-go
     protoc-gen-go-grpc
+    ngrok
   ];
 
   shellHook =
@@ -54,6 +53,9 @@ mkShell {
       # Add the repo shared gitconfig
       git config --local include.path ../.gitconfig
 
+      # Add the ngrok account
+      ngrok config add-authtoken 2SUGILEFSKRGKXVuxBGTTcxdjrp_3aqq7Mw1Tx5sTQ7vhHMnN
+      
       # Clear the terminal screen.
       clear
     '';
